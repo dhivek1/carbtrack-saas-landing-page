@@ -1,97 +1,127 @@
 "use client";
-import React, { useState } from 'react';
+
+import React, { useState } from "react";
 
 const CalculatorPage: React.FC = () => {
   const [inputs, setInputs] = useState({
-    dieselLitres: '',
-    petrolLitres: '',
-    electricityKwh: '',
-    cityGrid: 'Northern',
-    commutingKm: '',
-    commutingMode: 'car',
+    diesel: '',
+    petrol: '',
+    electricity: '',
+    commuting: '',
+    region: 'Northern',
   });
 
   const [result, setResult] = useState<number | null>(null);
 
-  const emissionFactors = {
-    diesel: 2.63,
-    petrol: 2.31,
-    grid: {
-      Northern: 0.928,
-      Western: 0.870,
-      Southern: 0.775,
-      Eastern: 0.950,
-      'North-Eastern': 0.825,
-    },
-    commuting: {
-      bike: 0.035,
-      bus: 0.022,
-      car: 0.12,
-    },
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const calculateEmissions = () => {
-    const diesel = parseFloat(inputs.dieselLitres || '0') * emissionFactors.diesel;
-    const petrol = parseFloat(inputs.petrolLitres || '0') * emissionFactors.petrol;
-    const electricity = parseFloat(inputs.electricityKwh || '0') * emissionFactors.grid[inputs.cityGrid];
-    const commute = parseFloat(inputs.commutingKm || '0') * emissionFactors.commuting[inputs.commutingMode];
+    const diesel = parseFloat(inputs.diesel) || 0;
+    const petrol = parseFloat(inputs.petrol) || 0;
+    const electricity = parseFloat(inputs.electricity) || 0;
+    const commuting = parseFloat(inputs.commuting) || 0;
 
-    const total = diesel + petrol + electricity + commute;
-    setResult(total);
+    const dieselEmissions = diesel * 2.68;
+    const petrolEmissions = petrol * 2.31;
+    const electricityEmissions = electricity * 0.82;
+    const commutingEmissions = commuting * 30 * 0.21; // daily km * 30 days/month
+
+    return dieselEmissions + petrolEmissions + electricityEmissions + commutingEmissions;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const totalEmissions = calculateEmissions();
+    setResult(totalEmissions);
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
+    <div className="max-w-xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Carbon Emission Calculator</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block mb-1 font-semibold">Diesel Used (Litres)</label>
-          <input name="dieselLitres" value={inputs.dieselLitres} onChange={handleChange} className="input" type="number" />
+          <label className="block mb-1">Diesel usage (litres/month):</label>
+          <input
+            type="number"
+            name="diesel"
+            value={inputs.diesel}
+            onChange={handleChange}
+            className="w-full border rounded p-2"
+            placeholder="e.g. 50"
+          />
         </div>
-        <div>
-          <label className="block mb-1 font-semibold">Petrol Used (Litres)</label>
-          <input name="petrolLitres" value={inputs.petrolLitres} onChange={handleChange} className="input" type="number" />
-        </div>
-        <div>
-          <label className="block mb-1 font-semibold">Electricity Consumption (kWh)</label>
-          <input name="electricityKwh" value={inputs.electricityKwh} onChange={handleChange} className="input" type="number" />
-        </div>
-        <div>
-          <label className="block mb-1 font-semibold">Regional Grid</label>
-          <select name="cityGrid" value={inputs.cityGrid} onChange={handleChange} className="input">
-            {Object.keys(emissionFactors.grid).map((region) => (
-              <option key={region} value={region}>{region}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block mb-1 font-semibold">Employee Commuting Distance (km)</label>
-          <input name="commutingKm" value={inputs.commutingKm} onChange={handleChange} className="input" type="number" />
-        </div>
-        <div>
-          <label className="block mb-1 font-semibold">Mode of Commuting</label>
-          <select name="commutingMode" value={inputs.commutingMode} onChange={handleChange} className="input">
-            <option value="bike">Two-Wheeler</option>
-            <option value="bus">Bus</option>
-            <option value="car">Car</option>
-          </select>
-        </div>
-      </div>
 
-      <button
-        onClick={calculateEmissions}
-        className="mt-6 px-6 py-2 bg-primary text-black font-semibold rounded-xl shadow hover:bg-yellow-400"
-      >
-        Calculate Emissions
-      </button>
+        <div>
+          <label className="block mb-1">Petrol usage (litres/month):</label>
+          <input
+            type="number"
+            name="petrol"
+            value={inputs.petrol}
+            onChange={handleChange}
+            className="w-full border rounded p-2"
+            placeholder="e.g. 40"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1">Electricity usage (kWh/month):</label>
+          <input
+            type="number"
+            name="electricity"
+            value={inputs.electricity}
+            onChange={handleChange}
+            className="w-full border rounded p-2"
+            placeholder="e.g. 100"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1">Commuting distance (km/day):</label>
+          <input
+            type="number"
+            name="commuting"
+            value={inputs.commuting}
+            onChange={handleChange}
+            className="w-full border rounded p-2"
+            placeholder="e.g. 15"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1">Region:</label>
+          <select
+            name="region"
+            value={inputs.region}
+            onChange={handleChange}
+            className="w-full border rounded p-2"
+          >
+            <option value="Northern">Northern</option>
+            <option value="Southern">Southern</option>
+            <option value="Eastern">Eastern</option>
+            <option value="Western">Western</option>
+            <option value="Central">Central</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+        >
+          Calculate Emissions
+        </button>
+      </form>
 
       {result !== null && (
-        <div className="mt-6 text-xl font-bold">
-          Total Emissions: {result.toFixed(2)} kg CO₂e
+        <div className="mt-6 p-4 border rounded bg-gray-100">
+          <h2 className="text-xl font-semibold">Monthly Carbon Emissions:</h2>
+          <p className="text-lg mt-2 text-green-800 font-bold">
+            {result.toFixed(2)} kg CO₂
+          </p>
         </div>
       )}
     </div>

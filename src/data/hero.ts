@@ -1,5 +1,7 @@
 export const heroDetails = {
-    heading: 'Smart, Secure, Simple Financial Management',
-    subheading: 'From effortless budgeting to real-time investment insights, Finwise puts you in control of your money like never before',
+    heading: 'Smart and Simple Emission Tracking and Reporting',
+    subheading: 'Track your carbon footprint and reduce emissions with AI-generated reports tailored to your specific needs. Includes ESG, BRSR,and any other report formats.',
     centerImageSrc: '/images/hero-mockup.webp',
+    buttonText: 'Try our Demo',
+    buttonHref: '/calculator',
 }

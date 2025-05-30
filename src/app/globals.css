@@ -3,14 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #FED835;
-  --secondary: #304fff;
+  --background: #f9fafb;
+  --foreground: #1f2937;
 
-  --primary-accent: #e5c230;
-  --foreground-accent: #454545;
-  --hero-background: #F3F3F5;
+  --primary: #10b981; /* Emerald Green */
+  --secondary: #3b82f6; /* Blue */
+
+  --primary-accent: #059669; /* Darker green */
+  --foreground-accent: #4b5563;
+
+  --hero-background: #ecfdf5;
 }
 
 html {
@@ -18,35 +20,43 @@ html {
 }
 
 body {
-  @apply text-lg;
-  
+  @apply text-base leading-relaxed antialiased;
+
   color: var(--foreground);
-  background: var(--background);
-  font-family: "Source Sans 3", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+  background-color: var(--background);
+  font-family: 'Inter', 'Manrope', 'Source Sans 3', sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
 
-.manrope {
-  font-family: "Manrope", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+  .bg-hero {
+    background-color: var(--hero-background);
+  }
+
+  .btn {
+    @apply inline-block px-6 py-3 rounded-lg text-white font-semibold shadow transition;
+  }
+
+  .btn-primary {
+    background-color: var(--primary);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--primary-accent);
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Manrope", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  color: var(--foreground);
 }
 
 #logos svg {
-  @apply w-fit h-10 sm:h-12;
+  @apply h-10 sm:h-12 w-auto;
 }
 
 .benefit-section:last-of-type > div {

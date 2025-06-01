@@ -24,7 +24,7 @@ const Header: React.FC = () => {
                     <Link href="/" className="flex items-center gap-2">
                         <FaFingerprint className="text-foreground min-w-fit w-7 h-7" />
                         <span className="manrope text-xl font-semibold text-foreground cursor-pointer">
-                            CarbonTrack
+                            Grio.ai
                         </span>
                     </Link>
 

@@ -39,7 +39,7 @@ const Header: React.FC = () => {
                         ))}
                         <li>
                             <Link
-                                href="/auth"
+                                href="/auth1"
                                 className="text-white bg-green-600 hover:bg-green-700 px-8 py-3 rounded-full transition-colors"
                             >
                                 Login

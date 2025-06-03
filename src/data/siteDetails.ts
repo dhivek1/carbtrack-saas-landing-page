@@ -1,9 +1,9 @@
 export const siteDetails = {
-    siteName: 'Finwise',
-    siteUrl: 'https://finwise-omega.vercel.app/',
+    siteName: 'Grio',
+    siteUrl: 'https://carbtrack-saas-landing-page.vercel.app/',
     metadata: {
-        title: 'Finwise - Next.js and Tailwind CSS Landing Page Template',
-        description: 'Finwise empowers businesses with cutting-edge technology solutions to drive success and efficiency.',
+        title: 'Smart and Simple Emission Tracking and Reporting',
+        description: 'Track your carbon footprint and reduce emissions with AI-generated reports tailored to your specific needs. Includes ESG, BRSR,and any other report formats.',
     },
     language: 'en-us',
     locale: 'en-US',

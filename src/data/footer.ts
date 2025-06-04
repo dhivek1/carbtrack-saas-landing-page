@@ -7,7 +7,7 @@ export const footerDetails: {
     telephone: string;
     socials: ISocials;
 } = {
-    subheading: "Empowering businesses with cutting-edge financial technology solutions.",
+    subheading: "Smart and Simple Emission Tracking and Reporting.",
     quickLinks: [
         {
             text: "Features",

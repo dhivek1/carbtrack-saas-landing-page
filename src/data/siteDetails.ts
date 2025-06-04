@@ -2,7 +2,7 @@ export const siteDetails = {
     siteName: 'Grio',
     siteUrl: 'https://carbtrack-saas-landing-page.vercel.app/',
     metadata: {
-        title: 'Smart and Simple Emission Tracking and Reporting',
+        title: 'Grio, Smart and Simple Emission Tracking and Reporting',
         description: 'Track your carbon footprint and reduce emissions with AI-generated reports tailored to your specific needs. Includes ESG, BRSR,and any other report formats.',
     },
     language: 'en-us',

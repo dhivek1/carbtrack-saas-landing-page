@@ -6,7 +6,10 @@ export default function AuthPage() {
   const [isRegister, setIsRegister] = useState(false);
 
   const handleAuth = () => {
-    const redirectUrl = isRegister ? '/api/auth/login?screen_hint=signup' : '/api/auth/login';
+    const redirectUrl = isRegister
+      ? '/api/auth/login?screen_hint=signup&returnTo=/dashboard'
+      : '/api/auth/login?returnTo=/dashboard';
+
     window.location.href = redirectUrl;
   };
 
